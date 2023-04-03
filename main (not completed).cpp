@@ -75,7 +75,12 @@ class poly{
         poly operator/(const poly&);
         poly operator%(const poly&);
         friend ostream & operator<<(ostream&,const poly&);
+    public:
+        poly* factor_mono(); //monomial.
+        poly* factor_bino(); //binomial.
+        poly* factor_form(); //formulary.
 };
+
 poly operator+(const poly& one,const poly& two){
     int maxsize=max(one.size,two.size);
     mono *sum=new mono[maxsize];
@@ -94,7 +99,7 @@ poly operator+(const poly& one,const poly& two){
     delete sum;
     return result;
 }
-poly poly::operator*(const poly& multiplier){ //not finished.  also: "this" refers to the first one.
+poly poly::operator*(const poly& multiplier){ //not completed.
 
 }
 poly operator*(const int& num,const poly& one){
@@ -103,13 +108,13 @@ poly operator*(const int& num,const poly& one){
         result.point[pos].coe*=num;
     return result;
 }
-poly poly::operator/(const poly& divisor){ //not finished! try to check it.
+poly poly::operator/(const poly& divisor){ //not checked! bug inside, maybe.
     mono *sum=new mono[this->size-1]; //
     poly *_this=this;
     int lastpow=_this->maxpow-divisor.maxpow;
     for(int pos=_this->size-1;pos>=0;pos--){
         int dividecoe=_this->point[pos].coe/divisor.point[divisor.size-1].coe;
-        sum[pos-(divisor.size-1)].coe=dividecoe; sum[pos-(divisor.size-1)].pow=pos-(divisor.size-1); //could 'this' change?
+        sum[pos-(divisor.size-1)].coe=dividecoe; sum[pos-(divisor.size-1)].pow=pos-(divisor.size-1);
         for(int posn=divisor.size-1;posn>=0;posn--)
             _this->point[pos+(size-posn)].coe-=divisor.point[posn].coe*dividecoe;
     }
@@ -118,7 +123,7 @@ poly poly::operator/(const poly& divisor){ //not finished! try to check it.
     delete sum;
     return result;
 }
-poly poly::operator%(const poly& divisor){ //not finished.
+poly poly::operator%(const poly& divisor){ //not completed.
     poly *_this=this;
     int lastpow=_this->maxpow-divisor.maxpow;
     for(int pos=_this->size-1;pos>=0;pos--){
@@ -138,4 +143,14 @@ ostream & operator<<(ostream& os,const poly& out){
         if(out.point[pos].pow!=0) os<<"x^"<<out.point[pos].pow;
     }
     return os;
+}
+
+poly* factor_mono(){
+
+}
+poly* factor_bino(){
+
+}
+poly* factor_form(){
+    
 }
